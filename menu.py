@@ -30,6 +30,7 @@ class Menu:
             b.check_click()
 
     def draw_menu(self):
+        self.context.screen.fill('#DCDDD8')
         self._draw_buttons()
 
     def quit_game(self):

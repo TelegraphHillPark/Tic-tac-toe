@@ -74,7 +74,7 @@ class Tictactoe:
         return False
 
     def get_current_player(self, move):
-        if (move - 1) % 2 == 0:
+        if move % 2 == 0:
             return self.context.player1
         return self.context.player2
 
@@ -84,9 +84,24 @@ class Tictactoe:
         screen = self.context.screen
         margin = self.context.margin
 
+        self.draw_top_panel()
+
         player = self.get_current_player(self.context.move)
 
+        if self.context.game_result:
+            screen.fill(self.context.colors['black'])
+            font = self.pygame.font.SysFont('stxingkai', 80)
+            text1 = font.render(
+                self.context.game_result, True, self.context.colors['white'])
+            text_rect = text1.get_rect()
+            text_x = screen.get_width() / 2 - text_rect.width / 2
+            text_y = screen.get_height() / 2 - text_rect.height / 2
+            screen.blit(text1, [text_x, text_y])
+            # TODO do something with it
+            self.pygame.time.wait(1000)
+
         for event in self.pygame.event.get():
+            player = self.get_current_player(self.context.move)
             if event.type == self.pygame.QUIT:
                 self.finish_game()
             elif (event.type == self.pygame.MOUSEBUTTONDOWN or player.mode == 'bot') \
@@ -95,8 +110,6 @@ class Tictactoe:
             elif (event.type == self.pygame.KEYDOWN
                   and event.key == self.pygame.K_SPACE):
                 self.reset()
-
-        self.draw_top_panel()
 
         if not self.context.game_result:
             for row in range(n):
@@ -122,16 +135,6 @@ class Tictactoe:
 
         if not self.context.game_result:
             self.context.game_result = self.check_win(player.sign)
-
-        if self.context.game_result:
-            screen.fill(self.context.colors['black'])
-            font = self.pygame.font.SysFont('stxingkai', 80)
-            text1 = font.render(
-                self.context.game_result, True, self.context.colors['white'])
-            text_rect = text1.get_rect()
-            text_x = screen.get_width() / 2 - text_rect.width / 2
-            text_y = screen.get_height() / 2 - text_rect.height / 2
-            screen.blit(text1, [text_x, text_y])
 
     def reset(self):
         self.context.game_result = False

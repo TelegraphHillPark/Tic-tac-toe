@@ -44,8 +44,8 @@ def draw_menu(pygame, context):
                  'callback': lambda: initialize_one_player_mode(context)},
                 {'text': 'Два игрока',
                  'callback': lambda: initialize_two_player_mode(context)},
-                {'text': 'Таблица рекордов',
-                 'callback': show_record_table},
+                # {'text': 'Таблица рекордов',
+                #  'callback': show_record_table},
                 {'text': 'Выход',
                  'callback': lambda: quit(pygame)}
             ]
@@ -55,7 +55,6 @@ def draw_menu(pygame, context):
         if event.type == pygame.QUIT:
             context.menu.quit_game()
 
-    context.screen.fill('#DCDDD8')
     context.menu.draw_menu()
 
 

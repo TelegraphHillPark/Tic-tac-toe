@@ -26,18 +26,22 @@ class RandomBot(Player):
     mode = 'bot'
 
     def move(self):
-        # def get_possible_points():
-        #     n = self.context.n
-        #     for i in range(n):
-        #         for j in range(n):
-        #             if self.context.ttt_list[i][j]
-        #     pass
+        def get_possible_points():
+            n = self.context.n
+            points = []
+            for i in range(n):
+                for j in range(n):
+                    if self.context.ttt_list[i][j] == 0:
+                        points.append((i, j))
+            return points
 
-        print('here')
         self.context.move += 1
-        # x, y = random.choice(get_possible_points())
-        #
-        # self.context.ttt_list[x][y] = self.sign
+        points = get_possible_points()
+        if len(points) == 0:
+            print('No possible places')
+            return
+        x, y = random.choice(points)
+        self.context.ttt_list[x][y] = self.sign
 
 
 class HardBot(RandomBot):

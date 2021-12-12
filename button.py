@@ -55,13 +55,11 @@ class Button:
             if pygame.mouse.get_pressed()[0]:
                 self.dynamic_elecation = 0
                 self.pressed = True
-                self.change_text(f"{self.text}")
             else:
                 self.dynamic_elecation = self.elevation
                 if self.pressed:
                     self.callback()
                     self.pressed = False
-                    self.change_text(self.text)
         else:
             self.dynamic_elecation = self.elevation
             self.top_color = '#475F77'
