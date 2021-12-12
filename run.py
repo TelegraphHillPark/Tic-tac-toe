@@ -1,7 +1,6 @@
 import pygame
 
-from player import Player, RandomBot
-from tictactoe import run
+from game import run
 
 
 class Context:
@@ -9,12 +8,17 @@ class Context:
     size_block = 125
 
     def __init__(self, n):
+        # screen params
         self.n = n
         self.top_panel_size_y = 100
         self.w = self.size_block * n + self.margin * 4
         self.h = self.w + self.top_panel_size_y
-        self.ttt_list = None
         self.screen = None
+
+        # map params
+        self.ttt_list = None
+
+        # misc
         self.clock = None
         self.colors = {
             'black': (0, 0, 0),
@@ -23,10 +27,13 @@ class Context:
             'blue': (0, 0, 255)
         }
         self.move = None
-        self.game_started = True
+        self.game_started = False
         self.game_result = None
         self.player1 = None
         self.player2 = None
+        self.menu = None
+        self.game = None
+        self.mode = None
 
 
 def main():
@@ -47,9 +54,6 @@ def main():
 
     pygame.display.update()
     pygame.mouse.set_visible(True)
-
-    context.player1 = Player(pygame, context, 'x')
-    context.player2 = Player(pygame, context, 'o')
 
     while True:
         run(pygame, context)
@@ -74,13 +78,10 @@ if __name__ == '__main__':
 
 # AI
     # random bot
+    # smart bot (3x3 only)
 
 # Finish game steps
     # show table for 2 sek
     # show who won (2sek)
     # update score
     # drop table
-
-# BUGS
-    # RESULT isn't dropped
-    # first move 'o'

@@ -1,3 +1,4 @@
+import random
 
 
 class Player:
@@ -25,10 +26,18 @@ class RandomBot(Player):
     mode = 'bot'
 
     def move(self):
+        # def get_possible_points():
+        #     n = self.context.n
+        #     for i in range(n):
+        #         for j in range(n):
+        #             if self.context.ttt_list[i][j]
+        #     pass
+
         print('here')
-        # Случайно выбрать клетку
-        # поставить свой знак
-        pass
+        self.context.move += 1
+        # x, y = random.choice(get_possible_points())
+        #
+        # self.context.ttt_list[x][y] = self.sign
 
 
 class HardBot(RandomBot):
