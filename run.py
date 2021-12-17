@@ -24,7 +24,8 @@ class Context:
             'black': (0, 0, 0),
             'white': (255, 255, 255),
             'red': (255, 0, 0),
-            'blue': (0, 0, 255)
+            'blue': (0, 0, 255),
+            'lightblue': (135, 206, 250),
         }
         self.move = None
         self.game_started = False
@@ -48,6 +49,7 @@ def main():
 
     context.ttt_list = [[0] * context.n for _ in range(context.n)]
     context.move = 0
+    # ['x', 'o', Piece, False(not finished)]
     context.game_result = False
 
     context.screen.fill(context.colors['black'])
@@ -61,27 +63,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-# add menu
-    # add background with rules
-    # one player (with bots)
-        # ask name
-    # two players
-        # ask name for player1
-        # ask name for player2
-    # record table (optional)
-    # exit
-
-# добавить панельку со счетом
-# <button_go_menu> name1 счет name2
-
-# AI
-    # random bot
-    # smart bot (3x3 only)
-
-# Finish game steps
-    # show table for 2 sek
-    # show who won (2sek)
-    # update score
-    # drop table

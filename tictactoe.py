@@ -26,48 +26,80 @@ class Tictactoe:
 
     def draw_top_panel(self):
         self.pygame.draw.rect(
-            self.context.screen, self.context.colors['white'],
+            self.context.screen, self.context.colors['lightblue'],
             (0, 0, self.context.w, self.context.top_panel_size_y))
-        font = self.pygame.font.SysFont('stxingkai', 60)  # 60pt = 20 symbols
-        text1 = font.render('player1 0:0 player22', True, self.context.colors['black'])
-        # text_rect = text1.get_rect()
-        # text_x = screen.get_width() / 2 - text_rect.width / 2
-        # text_y = screen.get_height() / 2 - text_rect.height / 2
-        self.context.screen.blit(text1, [0, 0])
+        font = self.pygame.font.SysFont('monospace', 35)
+        player1 = self.context.player1
+        player2 = self.context.player2
+        score1 = str(player1.score)
+        score2 = str(player2.score)
+        score = '{score1}:{score2}'.format(
+            score1=score1,
+            score2=score2,
+        )
+        possible_left_len = 9 - len(score1) - 1
+        possible_right_len = 9 - len(score2) - 1
+        name1 = player1.name[:min(possible_left_len, len(player1.name))]
+        name2 = player2.name[:min(possible_right_len, len(player2.name))]
+        name1 = name1.ljust(possible_left_len, ' ')
+        name2 = name2.rjust(possible_right_len, ' ')
+        text1 = font.render(
+            '{name1} {score} {name2}'.format(
+                name1=name1,
+                name2=name2,
+                score=score
+            ),
+            True,
+            self.context.colors['black']
+        )
+        self.context.screen.blit(text1, [0, self.context.top_panel_size_y / 4])
 
-    def check_win(self, sign):
+    def check_win(self, player):
+        sign = player.sign
         n = self.context.n
         spisok = self.context.ttt_list
-        zero = 0
-        for row in spisok:
-            zero += row.count(0)
-            if row.count(sign) == n:
-                return sign
 
-        for col in range(n):
-            k = 1
-            for i in range(n):
-                if spisok[i][col] != sign:
-                    k = 0
-            if k == 1:
-                return sign
-
-        k = 1
-        for i in range(n):
-            if spisok[i][i] != sign:
-                k = 0
-        if k == 1:
+        def increase_score_and_get_sign():
+            player.score += 1
             return sign
 
-        k = 1
+        # Проверка строк
+        for row in spisok:
+            if row.count(sign) == n:
+                return increase_score_and_get_sign()
+
+        # Проверка столбцов
+        for col in range(n):
+            win = True
+            for i in range(n):
+                if spisok[i][col] != sign:
+                    win = False
+                    break
+            if win:
+                return increase_score_and_get_sign()
+
+        # Проверка диагонали
+        win = True
+        for i in range(n):
+            if spisok[i][i] != sign:
+                win = False
+        if win:
+            return increase_score_and_get_sign()
+
+        # Проверка другой диагонали
+        win = True
         sub = 0
         for i in range(n):
             if spisok[i][n - 1 - sub] != sign:
-                k = 0
+                win = 0
             sub += 1
-        if k == 1:
-            return sign
+        if win:
+            return increase_score_and_get_sign()
 
+        # Проверка на ничью
+        zero = 0
+        for row in spisok:
+            zero += row.count(0)
         if zero == 0:
             return 'Piece'
 
@@ -111,6 +143,7 @@ class Tictactoe:
                   and event.key == self.pygame.K_SPACE):
                 self.reset()
 
+        # Draw game field
         if not self.context.game_result:
             for row in range(n):
                 for col in range(n):
@@ -134,7 +167,7 @@ class Tictactoe:
                         self.draw_circle(x, y)
 
         if not self.context.game_result:
-            self.context.game_result = self.check_win(player.sign)
+            self.context.game_result = self.check_win(player)
 
     def reset(self):
         self.context.game_result = False

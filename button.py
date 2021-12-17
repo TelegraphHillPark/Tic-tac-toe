@@ -1,5 +1,3 @@
-import sys
-
 import pygame
 
 
@@ -30,10 +28,6 @@ class Button:
         # callback
         self.callback = callback
 
-    def change_text(self, newtext):
-        self.text_surf = self.gui_font.render(newtext, True, '#FFFFFF')
-        self.text_rect = self.text_surf.get_rect(center=self.top_rect.center)
-
     def draw(self):
         # elevation logic
         self.top_rect.y = self.original_y_pos - self.dynamic_elecation
@@ -63,8 +57,3 @@ class Button:
         else:
             self.dynamic_elecation = self.elevation
             self.top_color = '#475F77'
-
-
-# button1 = Button('Rome',200,40,(100,200),5)
-# button2 = Button('Milan',200,40,(100,250),5)
-# button3 = Button('Neaples',200,40,(100,300),5)

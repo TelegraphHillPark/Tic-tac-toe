@@ -10,14 +10,13 @@ def go_menu(context):
 def proceed_game(pygame, context):
     context.screen.fill(context.colors['black'])
     if context.game is None:
-        context.player1 = Player(pygame, context, 'x')
+        context.player1 = Player(pygame, context, 'x', 'Игрок 1')
         if context.mode == 'two_players':
-            context.player2 = Player(pygame, context, 'o')
+            context.player2 = Player(pygame, context, 'o', 'Игрок 2 ')
         elif context.mode == 'one_player':
-            context.player2 = RandomBot(pygame, context, 'o')
+            context.player2 = RandomBot(pygame, context, 'o', 'Бот')
 
         context.game = Tictactoe(pygame, context)
-        # TODO initialize game according to context.mode
     context.game.calculate_game()
 
 
@@ -31,10 +30,6 @@ def initialize_two_player_mode(context):
     context.mode = 'two_players'
 
 
-def show_record_table():
-    print("I'm not working sore")
-
-
 def draw_menu(pygame, context):
     if context.menu is None:
         context.menu = Menu(
@@ -44,8 +39,6 @@ def draw_menu(pygame, context):
                  'callback': lambda: initialize_one_player_mode(context)},
                 {'text': 'Два игрока',
                  'callback': lambda: initialize_two_player_mode(context)},
-                # {'text': 'Таблица рекордов',
-                #  'callback': show_record_table},
                 {'text': 'Выход',
                  'callback': lambda: quit(pygame)}
             ]

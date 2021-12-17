@@ -4,10 +4,12 @@ import random
 class Player:
     mode = 'human'
 
-    def __init__(self, pygame, context, sign):
+    def __init__(self, pygame, context, sign, name='player'):
         self.pygame = pygame
         self.context = context
         self.sign = sign
+        self.name = name
+        self.score = 0
 
     def move(self):
         context = self.context
