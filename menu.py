@@ -10,8 +10,7 @@ class Menu:
         self.context = context
         self.create_buttons(button_params)
 
-    # def reinit
-
+    # инициализация необходимых для отрисовки кнопок
     def create_buttons(self, button_params):
         for idx, params in enumerate(button_params):
             self.buttons.append(
@@ -29,10 +28,12 @@ class Menu:
         for b in self.buttons:
             b.check_click()
 
+    # в методе вызывается _draw_buttons и закрашивается фон меню серым
     def draw_menu(self):
         self.context.screen.fill('#DCDDD8')
         self._draw_buttons()
 
+    # закрытие программы
     def quit_game(self):
         self.pygame.quit()
         sys.exit()

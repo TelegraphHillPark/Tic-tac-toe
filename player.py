@@ -1,6 +1,7 @@
 import random
 
 
+# живой соперник
 class Player:
     mode = 'human'
 
@@ -11,6 +12,7 @@ class Player:
         self.name = name
         self.score = 0
 
+    # логика определения хода живого соперника
     def move(self):
         context = self.context
         x_mouse, y_mouse = self.pygame.mouse.get_pos()
@@ -24,9 +26,11 @@ class Player:
             context.move += 1
 
 
+# искусственный соперник
 class RandomBot(Player):
     mode = 'bot'
 
+    # логика определения хода искусственного соперника
     def move(self):
         def get_possible_points():
             n = self.context.n

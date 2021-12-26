@@ -3,10 +3,7 @@ from player import Player, RandomBot
 from tictactoe import Tictactoe
 
 
-def go_menu(context):
-    context.game_started = False
-
-
+# определение режима игры
 def proceed_game(pygame, context):
     context.screen.fill(context.colors['black'])
     if context.game is None:
@@ -30,6 +27,7 @@ def initialize_two_player_mode(context):
     context.mode = 'two_players'
 
 
+# отрисовка меню приложения
 def draw_menu(pygame, context):
     if context.menu is None:
         context.menu = Menu(
@@ -51,6 +49,7 @@ def draw_menu(pygame, context):
     context.menu.draw_menu()
 
 
+# вызывает proceed_game (game_started = True) или draw_menu
 def run(pygame, context):
     if context.game_started:
         proceed_game(pygame, context)

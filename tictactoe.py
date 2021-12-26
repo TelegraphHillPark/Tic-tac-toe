@@ -6,6 +6,7 @@ class Tictactoe:
         self.pygame = pygame
         self.context = context
 
+    # отрисовка "крестиков"
     def draw_cross(self, x, y):
         self.pygame.draw.line(
             self.context.screen, self.context.colors['red'], (x + 14, y + 14),
@@ -17,6 +18,7 @@ class Tictactoe:
             (x + 14, y + self.context.size_block - 14), 20
         )
 
+    # отрисовка "ноликов"
     def draw_circle(self, x, y):
         self.pygame.draw.circle(
             self.context.screen, self.context.colors['blue'],
@@ -24,6 +26,7 @@ class Tictactoe:
             self.context.size_block // 2 - 5, 10
         )
 
+    # отрисовка верхней панели со счетом в режиме игры
     def draw_top_panel(self):
         self.pygame.draw.rect(
             self.context.screen, self.context.colors['lightblue'],
@@ -54,6 +57,7 @@ class Tictactoe:
         )
         self.context.screen.blit(text1, [0, self.context.top_panel_size_y / 4])
 
+    # возврат результата партии определенной сессии
     def check_win(self, player):
         sign = player.sign
         n = self.context.n
@@ -105,11 +109,13 @@ class Tictactoe:
 
         return False
 
+    # возврат хода текущего игрока
     def get_current_player(self, move):
         if move % 2 == 0:
             return self.context.player1
         return self.context.player2
 
+    # логика игрового процесса
     def calculate_game(self):
         n = self.context.n
         size_block = self.context.size_block
@@ -129,7 +135,6 @@ class Tictactoe:
             text_x = screen.get_width() / 2 - text_rect.width / 2
             text_y = screen.get_height() / 2 - text_rect.height / 2
             screen.blit(text1, [text_x, text_y])
-            # TODO do something with it
             self.pygame.time.wait(1000)
 
         for event in self.pygame.event.get():
@@ -169,12 +174,14 @@ class Tictactoe:
         if not self.context.game_result:
             self.context.game_result = self.check_win(player)
 
+    # перезапуск партии
     def reset(self):
         self.context.game_result = False
         self.context.ttt_list = [[0] * self.context.n for _ in range(self.context.n)]
         self.context.move = 0
         self.context.screen.fill(self.context.colors['black'])
 
+    # закрытие программы
     def finish_game(self):
         self.pygame.quit()
         sys.exit()

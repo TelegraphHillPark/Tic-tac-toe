@@ -3,7 +3,7 @@ import pygame
 
 class Button:
     def __init__(self, context, text, pos, elevation, callback):
-        # Core attributes
+        # основные атрибуты
         self.pressed = False
         self.elevation = elevation
         self.dynamic_elecation = elevation
@@ -11,16 +11,16 @@ class Button:
         self.context = context
         self.gui_font = pygame.font.Font(None, 30)
 
-        # top rectangle
+        # верхний прямоугольник
         width = 200
         height = 40
         self.top_rect = pygame.Rect(pos, (width, height))
         self.top_color = '#475F77'
 
-        # bottom rectangle
+        # нижний прямоугольник
         self.bottom_rect = pygame.Rect(pos, (width, height))
         self.bottom_color = '#354B5E'
-        # text
+        # текст
         self.text = text
         self.text_surf = self.gui_font.render(text, True, '#FFFFFF')
         self.text_rect = self.text_surf.get_rect(center=self.top_rect.center)
@@ -43,6 +43,7 @@ class Button:
         self.context.screen.blit(self.text_surf, self.text_rect)
 
     def check_click(self):
+        # отбражение изменения кнопки при нажатии
         mouse_pos = pygame.mouse.get_pos()
         if self.top_rect.collidepoint(mouse_pos):
             self.top_color = '#D74B4B'

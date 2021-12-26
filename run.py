@@ -3,6 +3,7 @@ import pygame
 from game import run
 
 
+# хранение вспомогательных данных
 class Context:
     margin = 7
     size_block = 125
@@ -41,12 +42,13 @@ def main():
     pygame.init()
     context = Context(3)
     size_window = (context.w, context.h)
+    # окно приложения
     context.screen = pygame.display.set_mode(size_window)
     pygame.display.set_caption("Крестики-Нолики")
-    # pygame.display.set_icon(pygame.image.load("krasnii krestik.bmp"))
 
     context.clock = pygame.time.Clock()
 
+    # список состояния игрового поля
     context.ttt_list = [[0] * context.n for _ in range(context.n)]
     context.move = 0
     # ['x', 'o', Piece, False(not finished)]
@@ -61,5 +63,6 @@ def main():
         run(pygame, context)
 
 
+# главный цикл
 if __name__ == '__main__':
     main()
